@@ -1,0 +1,16 @@
+{
+  "seed": 1,
+  "sections": [
+    { "name": "Sync",      "from": 1,   "to": 12,  "guide": true },
+    { "name": "Tutorial",  "from": 13,  "to": 25,  "beats": [13, 17, 21, 25], "pattern": "LLRR" },
+    { "name": "Step 1",    "from": 28,  "to": 59,  "every": 8, "level": 1 },
+    { "name": "Step 2",    "from": 60,  "to": 91,  "every": 4, "level": 2 },
+    { "name": "Step 3",    "from": 92,  "to": 147, "every": 4, "level": 3 },
+    { "name": "Step 4",    "from": 148, "to": 187, "every": 2, "level": 2 },
+    { "name": "Step 5",    "from": 188, "to": 219, "every": 2, "level": 3 },
+    { "name": "Step 6",    "from": 220, "to": 251, "every": 1, "level": 2 },
+    { "name": "Step 7",    "from": 252, "to": 283, "every": 2, "level": 5 },
+    { "name": "Peak",      "from": 284, "to": 307, "every": 1, "level": 5 },
+    { "name": "Cool-down", "from": 308, "to": 345, "every": 4, "level": 2 }
+  ]
+}
