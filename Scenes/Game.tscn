@@ -1,0 +1,22 @@
+[gd_scene format=3 uid="uid://bf6alrrs2ljvr"]
+
+[ext_resource type="Script" uid="uid://vrx77hkbkk36" path="res://Scripts/Game.gd" id="1_game"]
+[ext_resource type="AudioStream" uid="uid://blkgqgqtjcnvs" path="res://Assets/Music/Songs/9978-Singin-in-the-rain.mp3" id="2_song"]
+[ext_resource type="Script" uid="uid://8gk6k5u6jafn" path="res://Scripts/Conductor.gd" id="3_conductor"]
+[ext_resource type="Script" uid="uid://ch0yx4yfibj3s" path="res://Scripts/Groove.gd" id="4_groove"]
+
+[node name="Game" type="Node2D" unique_id=428777302]
+script = ExtResource("1_game")
+
+[node name="Conductor" type="AudioStreamPlayer" parent="." unique_id=394940227]
+stream = ExtResource("2_song")
+script = ExtResource("3_conductor")
+
+[node name="Groove" type="Node2D" parent="." unique_id=1792634716]
+script = ExtResource("4_groove")
+
+[node name="Info" type="Label" parent="." unique_id=1125398598]
+offset_left = 16.0
+offset_top = 12.0
+theme_override_colors/font_color = Color(0.62, 0.66, 0.75, 1)
+theme_override_font_sizes/font_size = 18
