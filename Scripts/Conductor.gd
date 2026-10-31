@@ -49,12 +49,7 @@ func _process(_delta: float) -> void:
 	if not _running or not playing:
 		return
 
-	# Godot's recommended way to get the time as heard: the playback position,
-	# plus time since the last audio chunk was mixed, minus the delay to the speakers.
-	var t := get_playback_position() + AudioServer.get_time_since_last_mix() - AudioServer.get_output_latency()
-	t += audio_offset_ms / 1000.0
-	# The reading can wobble backwards by a few milliseconds. Never let time run backwards.
-	song_time = maxf(song_time, t)
+	song_time = current_time()
 	song_beat = beat_map.beat_at_time(song_time)
 
 	var whole := floori(song_beat)
@@ -62,6 +57,19 @@ func _process(_delta: float) -> void:
 		_last_whole_beat += 1
 		if _last_whole_beat >= 0 and _last_whole_beat < beat_map.count():
 			beat_passed.emit(_last_whole_beat)
+
+
+## The song position at this exact moment, as heard. song_time is only updated once per frame;
+## presses arrive between frames, so they are judged with this instead.
+func current_time() -> float:
+	if not _running or not playing:
+		return song_time
+	# Godot's recommended way to get the time as heard: the playback position,
+	# plus time since the last audio chunk was mixed, minus the delay to the speakers.
+	var t := get_playback_position() + AudioServer.get_time_since_last_mix() - AudioServer.get_output_latency()
+	t += audio_offset_ms / 1000.0
+	# The reading can wobble backwards by a few milliseconds. Never let time run backwards.
+	return maxf(song_time, t)
 
 
 func _on_finished() -> void:

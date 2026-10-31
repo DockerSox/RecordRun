@@ -32,6 +32,8 @@ class Note:
 	var time: float
 	## Index into Chart.sections.
 	var section: int
+	## How the player did on this scratch: a Judge.Result value. 0 = not judged yet.
+	var result: int = 0
 
 
 ## Every scratch, in order.
