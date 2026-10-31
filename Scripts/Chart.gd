@@ -173,8 +173,8 @@ static func _positions(sec: Dictionary, lo: int, hi: int, map: BeatMap) -> Array
 	if every < 1:
 		every = 1
 	if every > 4 and every % 4 != 0:
-		push_warning("Chart: \"every\" in \"%s\" should be 1, 2, 4 or a multiple of 4. Using %d." % [sec["name"], (every / 4) * 4])
-		every = (every / 4) * 4
+		push_warning("Chart: \"every\" in \"%s\" should be 1, 2, 4 or a multiple of 4. Using %d." % [sec["name"], every - every % 4])
+		every -= every % 4
 
 	var bars: Array[int] = []
 	for b in map.bar_starts:
@@ -185,7 +185,7 @@ static func _positions(sec: Dictionary, lo: int, hi: int, map: BeatMap) -> Array
 		return out
 
 	if every >= 4:
-		var step := every / 4
+		var step := floori(every / 4.0)
 		for k in range(0, bars.size(), step):
 			out.append(bars[k])
 	else:
@@ -217,7 +217,7 @@ static func _directions(sec: Dictionary, count: int, rng: RandomNumberGenerator)
 		1:
 			while out.size() < count:
 				# Runs of 2-4, but never more than half the section, so short sections still switch.
-				var run := mini(rng.randi_range(2, 4), maxi(2, (count + 1) / 2))
+				var run := mini(rng.randi_range(2, 4), maxi(2, ceili(count / 2.0)))
 				for k in run:
 					out.append(d)
 				d = -d
@@ -226,7 +226,7 @@ static func _directions(sec: Dictionary, count: int, rng: RandomNumberGenerator)
 				out.append(d if k % 2 == 0 else -d)
 		3:
 			for k in count:
-				out.append(d if (k / 2) % 2 == 0 else -d)
+				out.append(d if k % 4 < 2 else -d)
 		4:
 			var motifs := ["LLR", "LRR", "RLL", "RRL", "LR", "RL"]
 			var last := ""
